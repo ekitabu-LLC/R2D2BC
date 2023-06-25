@@ -3,6 +3,7 @@ import { Publication } from "../../model/Publication";
 import { IFrameNavigator } from "../../navigator/IFrameNavigator";
 import log from "loglevel";
 import { Locator } from "../../model/Locator";
+import { xAPIManager } from "./xStatement";
 
 /*
 Beta Module !!!
@@ -11,6 +12,7 @@ Beta Module !!!
 export enum Action {
   BookmarkCreated = "BookmarkCreated",
   HighlightCreated = "HighlightCreated",
+  BookOpened = "BookOpened",
 }
 
 export interface ConsumptionModuleAPI {
@@ -45,6 +47,7 @@ export class ConsumptionModule implements ReaderModule {
   private publication: Publication;
   private properties: ConsumptionModuleProperties;
   api?: ConsumptionModuleAPI;
+  xAPIManager = new xAPIManager("","");
 
   // research session - one research session per book opening until book closes or times out
   // reading session - multiple reading sessions within a research session

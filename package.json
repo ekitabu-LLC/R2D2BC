@@ -24,8 +24,8 @@
     "example:react": "parcel examples/react/index.html --dist-dir parcel-dist"
   },
   "dependencies": {
-    "@types/sass": "^1.43.1",
     "@types/pdfjs-dist": "^2.7.4",
+    "@types/sass": "^1.43.1",
     "browserslist-useragent": "^3.0.3",
     "cssesc": "^3.0.0",
     "detect-browser": "^5.2.0",
@@ -43,7 +43,8 @@
     "sass": "^1.54.4",
     "sentence-splitter": "^3.2.1",
     "util": "^0.12.4",
-    "whatwg-fetch": "^3.6.2"
+    "whatwg-fetch": "^3.6.2",
+    "winreg": "^1.2.4"
   },
   "browserslist": {
     "production": [

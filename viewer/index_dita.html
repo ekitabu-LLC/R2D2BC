@@ -728,6 +728,44 @@
     </div>
 
     <script>
+        let getPublication = async function(url){
+            try {
+                const response = await fetch(url.href);
+                const data = await response.json();
+                const identifier = data.metadata.identifier;
+                console.log(identifier);
+                return identifier;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        let sendAnalytics = function(verb, user, publication){
+            const params = {
+                apiKey: '76F0D95041D26A24F034BD2AD7780E9153D89DA772C602143E2BE082805C07A6',
+                verb: 'openBook',
+                publication: publication,
+                user: 'user'
+            };
+
+            const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(params)
+            };
+
+            fetch('https://localhost:5001/Analytics/IngestAnalyticsAsync', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                // Process the API response
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle any errors
+                console.error(error);
+            });
+        }
+
         let getURLQueryParams = function () {
             let params = {};
             let query = window.location.search;
@@ -996,6 +1034,15 @@
                     actionTracked: function(locator, action) {
                         console.log("actionTracked: ", locator.href, " action ", action);
                         toast("actionTracked: " + action);
+                        if(action == "BookOpened"){
+                            let publicationId;
+                            getPublication(new URL(urlParams["url"])).then(identifier => {
+                                publicationId = identifier;
+                                console.log('send id ' + publicationId);
+                                sendAnalytics('open book', 'not here', publicationId);
+                                toast("data sent from open book");
+                            });
+                        }
                     },
 
                 },

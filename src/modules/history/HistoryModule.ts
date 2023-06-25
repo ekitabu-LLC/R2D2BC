@@ -28,6 +28,7 @@ import { Locator, ReadingPosition } from "../../model/Locator";
 import { Publication } from "../../model/Publication";
 import Annotator from "../../store/Annotator";
 import log from "loglevel";
+import { Action } from '../consumption/ConsumptionModule'
 
 export interface HistoryModuleProperties {
   hideLayer?: boolean;
@@ -120,6 +121,12 @@ export class HistoryModule implements ReaderModule {
         }
       }
     }
+
+    let l : ReadingPosition = this.annotator?.getLastReadingPosition();
+    this.navigator.consumptionModule?.trackAction(
+      l ,
+      Action.BookOpened
+    );
   }
 
   async push(locator: Locator, history: boolean) {
